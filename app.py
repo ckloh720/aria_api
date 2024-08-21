@@ -222,11 +222,7 @@ def page():
         st.session_state["messages"] = []
         st.session_state["assistant"] = ChatCSV()
 
-    chatbot = st.session_state["assistant"]
-    chatbot.ingest (chatbot, "Menu.csv")
        
-    process_api (chatbot)
-    
     # Display the main header of the Streamlit app.
     st.header("ChatCSV")
 
@@ -253,6 +249,9 @@ def page():
     # "process_input" function when the input changes.
     st.text_input("Message", key="user_input", on_change=process_input)
 
+    chatbot = st.session_state["assistant"]
+    chatbot.ingest ("Menu.csv")
+    process_api (chatbot)
 
 
 
