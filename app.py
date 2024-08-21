@@ -222,6 +222,11 @@ def page():
         st.session_state["messages"] = []
         st.session_state["assistant"] = ChatCSV()
 
+    chatbot = st.session_state["assistant"]
+    chatbot.ingest (chatbot, "Menu.csv")
+       
+    process_api (chatbot)
+    
     # Display the main header of the Streamlit app.
     st.header("ChatCSV")
 
@@ -247,6 +252,26 @@ def page():
     # The input field has a key "user_input," and the on_change event triggers the
     # "process_input" function when the input changes.
     st.text_input("Message", key="user_input", on_change=process_input)
+
+
+
+
+def process_api (chatbot : ChatCSV):
+     # Extract query parameters
+    query_params = st.experimental_get_query_params()
+
+    # If the API is called with specific parameters
+    if "api" in query_params:
+        st.write("API mode activated")
+
+        # Example: return a simple JSON response
+        if "GetResponse" in query_params:
+            prompt = {"message": query_params["prompt"][0]}
+            chatbot.ask (chatbot, prompt)
+        else:
+            response = {"message": "Hello, world!"}
+
+        st.json(response)
 
 # Check if the script is being run as the main module.
 if __name__ == "__main__":
