@@ -266,7 +266,7 @@ def process_api (chatbot : ChatCSV):
         # Example: return a simple JSON response
         if "GetResponse" in query_params:
             prompt = {"message": query_params["prompt"][0]}
-            chatbot.ask (chatbot, prompt)
+            response = chatbot.ask (chatbot, prompt)
         else:
             response = {"message": "Hello, world!"}
 
